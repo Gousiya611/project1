@@ -1,0 +1,5 @@
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='gousia6@8')
+print(mydb.connection_id) 
+C1=mydb.cursor()
+C1.execute('create database INVENTORY_MANAGMENT')
