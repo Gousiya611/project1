@@ -1,3 +1,5 @@
+--- create database INVENTORY_MANAGMENT
+
 import mysql.connector
 mydb=mysql.connector.connect(host='localhost',user='root',password='gousia6@8')
 print(mydb.connection_id) 
@@ -40,7 +42,7 @@ D=[(300,'SHIRT','BLACK','Oray','ABC','2000','2023-07-01','2023-05-01'),(301,'TOY
 C1.executemany(W,D)
 mydb.commit()
 
----- execution
+--- FETCHING TABLES
 import mysql.connector
 mydb=mysql.connector.connect(host='localhost',user='root',password='gousia6@8',database='INVENTORY_MANAGMENT')
 C1=mydb.cursor()
@@ -53,6 +55,8 @@ C1.execute(h)
 i='select * from sales'
 C1.execute(i)
 
+
+--- EXECUTION OF QUERY
 delete_='DELETE FROM SALES WHERE STORE_NAME = "Oray"  AND MANUFACTURE_DATE = "2023-04-01" '
 C1.execute(delete_)
 
