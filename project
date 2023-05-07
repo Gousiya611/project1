@@ -3,3 +3,66 @@ mydb=mysql.connector.connect(host='localhost',user='root',password='gousia6@8')
 print(mydb.connection_id) 
 C1=mydb.cursor()
 C1.execute('create database INVENTORY_MANAGMENT')
+
+ --- creating tables
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='gousia6@8',database='INVENTORY_MANAGMENT')
+C1=mydb.cursor()
+table='create table MANUFACTURE(MANUFACTURE_id integer(10),MANUFACTURE_PRODUCT varchar(50),COLOUR VARCHAR(20), NO_OF_ITEMS integer(10), COMPANY_NAME VARCHAR(30),NO_OF_DEFECTED_ITEMS INTEGER(40))'
+C1.execute(table)
+table1='create table GOODS(GOODS_ID integer(10), GOOD_NAME varchar(30), COMPANY_NAME integer(30), MANUFACTURE_DATE DATE, GOOD_PRICE INTEGER(40))'
+C1.execute(table1)
+table2='create table PURCHASE(PURCHASE_ID integer(10), PURCHASE_ITEM VARCHAR(20), COLOUR VARCHAR(30),PURCHASE_AMOUNT INTEGER(10), MODE_OF_PURCHASE VARCHAR(30) )'
+C1.execute(table2)
+table3='create table SALES(SALE_ID integer(10), GOOD_NAME varchar(30),COLOUR_ VARCHAR(30), STORE_NAME VARCHAR(30),company varchar(50),PROFIT_MARGIN INTEGER(40),SALE_DATE DATE, manufacture_date date )' 
+C1.execute(table3)
+
+
+--- inserting values
+
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='gousia6@8',database='INVENTORY_MANAGMENT')
+C1=mydb.cursor()
+z='insert into MANUFACTURE(MANUFACTURE_id,MANUFACTURE_PRODUCT,COLOUR,NO_OF_ITEMS,COMPANY_NAME ,NO_OF_DEFECTED_ITEMS) values(%s,%s,%s,%s,%s)'
+a=[(101,'shirt','BLACK',10,'Oray',1),(102,'woodenchair','GREEN',40,'Whilsom',4),(103,'toys','RED',50,'firsttoy',10),(104,'woodentable','YELLOW',40,'SS EXPORT',4)]
+C1.executemany(z,a)
+mydb.commit()
+X='insert into GOODS(GOODS_ID,GOOD_NAME,COMPANY_NAME,MANUFACTURE_DATE, GOOD_PRICE) values(%s,%s,%s,%s,%s)'
+B=[(500,'SHIRT','ORAY','2023-04-01','10000'),(501,'WOODENCHAIR','WHILSOM','2023-03-01','50000'),(502,'TOYS','FIRSTTOY','2023-04-03','200000'),(503,'WOODENTABLE','SS EXPORT','2023-12-03','400000')]
+C1.executemany(X,B)
+mydb.commit()
+Y='insert into PURCHASE(PURCHASE_ID,PURCHASE_ITEM,COLOUR ,PURCHASE_AMOUNT,MODE_OF_PURCHASE) values(%s,%s,%s,%s,%s)'
+c=[(200,'shirt','black','2000','online'),(201,'toys','red','200','offline'),(202,'wooden chair','brown','1500','online'),(203,'wooden table','black','1000','offline')]
+C1.executemany(Y,c)
+mydb.commit()
+W='insert into SALES(SALE_ID ,GOOD_NAME,COLOUR_ ,STORE_NAME,company,PROFIT_MARGIN, SALE_DATE,Manufacture_date) values(%s,%s,%s,%s,%s,%s,%s,%s)'
+D=[(300,'SHIRT','BLACK','Oray','ABC','2000','2023-07-01','2023-05-01'),(301,'TOYS','RED','MyKids','REF','50000','2023-01-01','2023-05-01'),(302,'wooden chair','BLACK','Shifa store','GRE','20000','2023-03-01','2023-05-01'),(303,'wooden table','Brown','MyCare','SS Exports','5000','2023-06-01','2023-05-01')]
+C1.executemany(W,D)
+mydb.commit()
+
+---- execution
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='gousia6@8',database='INVENTORY_MANAGMENT')
+C1=mydb.cursor()
+f='select * from MANUFACTURE'
+C1.execute(f)
+g='SELECT * FROM  Goods'
+C1.execute(g)
+h='select * from purchase'
+C1.execute(h)
+i='select * from sales'
+C1.execute(i)
+
+delete_='DELETE FROM SALES WHERE STORE_NAME = "Oray"  AND MANUFACTURE_DATE = "2023-04-01" '
+C1.execute(delete_)
+
+update_='UPDATE MANUFACTURE NO_OF_ITEMS = 100 WHERE MANUFACTURE_PRODUCT="TOYS" AND COLOUR="RED"'
+C1.execute(update_)
+
+display_ = 'select * from GOODS where manufacture_date < "2023-05-01"'
+C1.execute(display_)
+
+display2_ ='select * from SALES where store_name ="MyCare" and company ="SS Exports"'
+C1. execute(display2_)
+
+
